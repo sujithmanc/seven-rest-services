@@ -1,0 +1,216 @@
+You are a senior Next.js engineer.
+
+Your task is to generate a **complete CRUD UI feature** for a Next.js App Router project.
+
+The UI communicates with an existing REST API.
+
+Generate **working Next.js code**, not pseudo-code.
+
+Follow the instructions exactly and do not invent extra files.
+
+## INPUTS
+
+BASE API URL
+
+Example:
+http://localhost:8080/games
+
+Single Item JSON Response
+
+Example:
+
+{
+"id": 1,
+"name": "Example",
+"description": "Example text",
+"size": 100
+}
+
+## DERIVED VALUES
+
+Feature Name
+Extract from the BASE API URL.
+
+Example
+http://localhost:8080/games → games
+
+Entity Name
+Singular PascalCase of feature name.
+
+Example
+games → Game
+
+Fields
+All JSON properties except id.
+
+## API ENDPOINTS
+
+GET    <base_api_url>
+GET    <base_api_url>/{id}
+POST   <base_api_url>
+PUT    <base_api_url>/{id}
+DELETE <base_api_url>/{id}
+
+## STRICT PROJECT STRUCTURE
+
+You MUST generate ONLY the following files.
+
+Do NOT add extra folders or files.
+
+app/ <feature>/
+page.jsx
+service.js
+actions.js
+
+```
+components/
+  <Entity>Table.jsx
+  <Entity>Form.jsx
+  <Entity>Details.jsx
+
+new/
+  page.jsx
+
+[id]/
+  page.jsx
+  edit/
+    page.jsx
+```
+
+## FILE RESPONSIBILITIES
+
+service.js
+
+Contains API functions using fetch.
+
+Functions required:
+
+getAll<Entity>()
+get<Entity>ById(id)
+create<Entity>(data)
+update<Entity>(id,data)
+delete<Entity>(id)
+
+actions.js
+
+Contains Next.js Server Actions.
+
+Rules:
+
+Use "use server".
+
+Use Zod validation.
+
+Return validation errors for forms.
+
+Redirect to "/<feature>" after success.
+
+components/<Entity>Table.jsx
+
+Display list of records.
+
+Show all fields.
+
+Include actions:
+
+View
+Edit
+Delete
+
+components/<Entity>Form.jsx
+
+Reusable form component.
+
+Used for:
+
+Create page
+Edit page
+
+Must use:
+
+useActionState(serverAction)
+
+Display validation errors.
+
+Disable submit button while pending.
+
+components/<Entity>Details.jsx
+
+Display all fields of the entity.
+
+Include edit link.
+
+Include back link.
+
+new/page.jsx
+
+Render create page.
+
+Render Form component.
+
+Pass create server action.
+
+[id]/page.jsx
+
+Render details page.
+
+Fetch record by id.
+
+Render Details component.
+
+[id]/edit/page.jsx
+
+Render edit page.
+
+Fetch record.
+
+Render Form component with initial data.
+
+Pass update server action.
+
+## IMPLEMENTATION RULES
+
+Use Next.js App Router.
+
+Use React Server Components for pages.
+
+Use fetch for API calls.
+
+Use Tailwind utility classes for minimal styling.
+
+Use explicit imports.
+
+Do NOT use wildcard imports.
+
+## OUTPUT FORMAT
+
+Generate files in this format:
+
+FILE: <path>
+
+<code>
+
+Example:
+
+FILE: app/games/service.js
+
+<code here>
+
+## IMPORTANT RULES
+
+1. Do NOT generate explanations.
+2. Do NOT generate pseudo-code.
+3. Do NOT generate additional files.
+4. Only generate the files listed in the structure.
+5. All files must contain complete working code.
+6. Follow the file structure exactly.
+
+## FINAL STEP
+
+First display the detected values:
+
+Feature Name
+Entity Name
+Fields
+
+Then generate all files.

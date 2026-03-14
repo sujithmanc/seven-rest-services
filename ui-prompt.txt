@@ -1,0 +1,164 @@
+You are a senior Next.js engineer.
+
+Your task is to generate a complete CRUD UI feature for a Next.js App Router project.
+
+The frontend must call an existing REST API.
+
+Do not generate backend or database code.
+
+Everything must be placed inside a single feature folder.
+
+## INPUTS
+
+BASE API URL:
+<base_api_url>
+
+Example:
+http://localhost:8080/games
+
+Single Item JSON Response:
+<paste_json_here>
+
+Example:
+
+{
+"id": 1,
+"name": "GTA V",
+"description": "Open world game",
+"size": 120,
+"developer": "Rockstar"
+}
+
+## DERIVED VALUES
+
+Feature Name:
+Extract from BASE API URL.
+
+Example:
+http://localhost:8080/games → feature = games
+
+Entity Name:
+Singular PascalCase of feature name.
+
+Example:
+games → Game
+
+Fields:
+Extract all JSON properties except id.
+
+## API ENDPOINTS
+
+GET    <base_api_url>
+GET    <base_api_url>/{id}
+POST   <base_api_url>
+PUT    <base_api_url>/{id}
+DELETE <base_api_url>/{id>
+
+## PROJECT STRUCTURE
+
+Generate the following structure:
+
+app/ <feature>/
+page.jsx
+service.js
+actions.js
+
+```
+components/
+  <Entity>Table.jsx
+  <Entity>Form.jsx
+  <Entity>Details.jsx
+
+new/
+  page.jsx
+
+[id]/
+  page.jsx
+  edit/
+    page.jsx
+```
+
+## FILE RESPONSIBILITIES
+
+service.js
+
+Call the REST API using fetch().
+
+Functions:
+getAll<Entity>()
+get<Entity>ById(id)
+create<Entity>(data)
+update<Entity>(id, data)
+delete<Entity>(id)
+
+actions.js
+
+Use Next.js Server Actions.
+
+Validate input using Zod.
+
+Return validation errors to useActionState.
+
+If validation fails:
+return errors.
+
+If success:
+call service layer and redirect to "/<feature>".
+
+## FORM RULES
+
+Form component must:
+
+use useActionState(serverAction)
+
+Receive props:
+initialData
+serverAction
+
+Display inputs for all fields from JSON response except id.
+
+Display validation errors.
+
+Disable submit button when pending.
+
+Support both create and edit.
+
+## TABLE RULES
+
+Display all fields except id.
+
+Add actions column:
+
+View
+Edit
+Delete
+
+## DETAILS RULES
+
+Display all fields of the entity.
+
+Include edit button.
+
+Include back button.
+
+## OUTPUT RULES
+
+1. First confirm extracted values:
+
+Feature Name
+Entity Name
+Fields
+
+2. Show the generated file structure.
+
+3. Do NOT generate code until the user explicitly writes:
+
+GENERATE CODE
+
+4. When "GENERATE CODE" is received:
+
+Generate files one by one.
+
+Each file must start with:
+
+FILE: <path>
