@@ -26,7 +26,10 @@ lucide-react
 
 ## INPUTS
 
-BASE API URL: http://localhost:8080/<entities>
+
+RESOURCE API URL(BASE API URL will include the resource path.):
+http://localhost:8080/<entities>
+
 
 Single Item JSON Response
 Example:
@@ -38,7 +41,7 @@ Example:
 }
 
 
-## DERIVED VALUES
+## DERIVED PLACEHOLDER VALUES 
 
 Feature Name
 Extract from the BASE API URL.
@@ -49,11 +52,13 @@ Entity Name
 <Entity> : <entities> Singular PascalCase of feature name.
 <entity> : <entities> Singular Camel Case of feature name.
 
-Example:
+Example (PlaceHolders):
 http://localhost:8080/users
 <entities> = users
 <Entity>  = User
 <entity>  = user
+
+Replace placeholder wherever required.
 
 
 Fields
@@ -101,7 +106,7 @@ getAll<Entity>()
 get<Entity>ById(id)
 create<Entity>(data)
 update<Entity>(id,data)
-delete<Entity>(id)
+delete<Entity>ById(id)
 
 
 ### actions.js:
