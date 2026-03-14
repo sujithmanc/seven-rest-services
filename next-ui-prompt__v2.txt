@@ -28,7 +28,7 @@ lucide-react
 
 
 RESOURCE API URL(BASE API URL will include the resource path.):
-http://localhost:8080/<entities>
+http://localhost:8080/{{resource}}
 
 
 Single Item JSON Response
@@ -45,18 +45,18 @@ Example:
 
 Feature Name
 Extract from the Resource API URL.
-Ex: <entities>
+Ex: {{resource}}
 
 Entity Name
 
-<Entity> : <entities> Singular PascalCase of feature name.
-<entity> : <entities> Singular Camel Case of feature name.
+{{Entity}} : {{resource}} Singular PascalCase of feature name.
+{{ENTITY}} : {{resource}} Singular Camel Case of feature name.
 
 Example (PlaceHolders):
 http://localhost:8080/users
-<entities> = users
-<Entity>  = User
-<entity>  = user
+{{entities}} = users
+{{ENTITY}}  = User
+{{ENTITY}}  = user
 
 Replace placeholder wherever required.
 
@@ -82,10 +82,10 @@ app/<entities>/
 ├── service.js                        ← API fetch functions
 ├── actions.js                        ← Server Actions + Zod validation
 ├── components/
-│   ├── <Entity>Table.jsx             ← Table with View/Edit/Delete (Server)
-│   ├── <Entity>Form.jsx              ← Reusable form with useActionState (Client)
-│   ├── <Entity>Details.jsx           ← Detail view with stat cards (Server)
-│   └── <Entity>DeleteButton.jsx      ← Confirm + delete with useTransition (Client)
+│   ├── {{ENTITY}}Table.jsx             ← Table with View/Edit/Delete (Server)
+│   ├── {{ENTITY}}Form.jsx              ← Reusable form with useActionState (Client)
+│   ├── {{ENTITY}}Details.jsx           ← Detail view with stat cards (Server)
+│   └── {{ENTITY}}DeleteButton.jsx      ← Confirm + delete with useTransition (Client)
 ├── new/
 │   └── page.jsx                      ← Create page (Server)
 └── [id]/
@@ -102,11 +102,11 @@ Contains API functions using fetch.
 
 Functions required:
 
-getAll<Entity>()
-get<Entity>ById(id)
-create<Entity>(data)
-update<Entity>(id,data)
-delete<Entity>ById(id)
+getAll{{ENTITY}}()
+get{{ENTITY}}ById(id)
+create{{ENTITY}}(data)
+update{{ENTITY}}(id,data)
+delete{{ENTITY}}ById(id)
 
 
 ### actions.js:
@@ -121,7 +121,7 @@ Return validation errors for forms.
 Redirect to "/<feature>" after success.
 
 Ex:
-export async function create<Entity>Action(prevState, formData) {
+export async function create{{ENTITY}}Action(prevState, formData) {
   const raw = {
     title: formData.get("title"),
   };
@@ -135,19 +135,19 @@ export async function create<Entity>Action(prevState, formData) {
   redirect("/bookmarks");
 }
 
-export async function update<Entity>Action(id, prevState, formData) {
+export async function update{{ENTITY}}Action(id, prevState, formData) {
 	//...
-	await update<Entity>(id, result.data);
+	await update{{ENTITY}}(id, result.data);
 }
 
-export async function delete<Entity>Action(id) {
-  await delete<Entity>(id);
+export async function delete{{ENTITY}}Action(id) {
+  await delete{{ENTITY}}(id);
   redirect("/<entities>");
 }
 
 
 
-### components/<Entity>Table.jsx
+### components/{{ENTITY}}Table.jsx
 
 It must be Server Component.
 Display list of records.
@@ -156,10 +156,10 @@ Show all fields.
 Include actions:
 View: Use Link to navigate
 Edit: Use Link to navigate
-Delete<Entity>Button.jsx
+Delete{{ENTITY}}Button.jsx
 
 
-### components/<Entity>Form.jsx
+### components/{{ENTITY}}Form.jsx
 
 It's the client Component.
 Reusable form component.
@@ -218,20 +218,20 @@ export default function BookmarkForm({ action, initialData }) {
 }
 
 
-### components/<Entity>Details.jsx
+### components/{{ENTITY}}Details.jsx
 
 Display all fields of the entity.
 It must be Server Component
 Include edit link from "next/link";
 Include back link from "next/link";
 
-### components/Delete<Entity>Button.jsx
+### components/Delete{{ENTITY}}Button.jsx
 
 It's Server Component
 
 "use client"
 import { useTransition } from "react";
-import { delete<Entity>Action } from "../actions";
+import { delete{{ENTITY}}Action } from "../actions";
 
 export default function DeleteButton({ id }) {
     const [isPending, startTransition] = useTransition();
@@ -255,12 +255,12 @@ Render Form component.
 Pass create server action.
 
 Ex:
-import <Entity>Form from "../components/<Entity>Form";
-import { create<Entity>Action } from "../actions";
+import {{ENTITY}}Form from "../components/{{ENTITY}}Form";
+import { create{{ENTITY}}Action } from "../actions";
 
-export default function New<Entity>Page() {
+export default function New{{ENTITY}}Page() {
   return (
-      <<Entity>Form action={create<Entity>Action} />
+      <{{ENTITY}}Form action={create{{ENTITY}}Action} />
   );
 }
 
@@ -271,11 +271,11 @@ Fetch record by id.
 Render Details component.
 
 Ex:
-export default async function <Entity>DetailsPage({ params }) {
+export default async function {{ENTITY}}DetailsPage({ params }) {
   const { id } = await params;
-  const <entity> = await get<Entity>ById(id);
+  const {{ENTITY}} = await get{{ENTITY}}ById(id);
   return (
-      <<Entity>Details <entity>={<entity>} />
+      <{{ENTITY}}Details {{ENTITY}}={{{ENTITY}}} />
   );
 }
 
@@ -289,12 +289,12 @@ Render Form component with initial data.
 Pass update server action.
 
 Ex:
-export default async function Edit<Entity>Page({ params }) {
+export default async function Edit{{ENTITY}}Page({ params }) {
   const { id } = await params;  
-  const <entity> = await get<Entity>ById(id);
-  const boundAction = update<Entity>Action.bind(null, id);  
+  const {{ENTITY}} = await get{{ENTITY}}ById(id);
+  const boundAction = update{{ENTITY}}Action.bind(null, id);  
 
-  return <<Entity>Form action={boundAction} initialData={<entity>} />;
+  return <{{ENTITY}}Form action={boundAction} initialData={{{ENTITY}}} />;
 }
 
 
