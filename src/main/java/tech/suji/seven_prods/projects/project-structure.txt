@@ -1,0 +1,205 @@
+Folder PATH listing for volume Jesus
+Volume serial number is 8CE9-E858
+F:.
+|   project-structure.txt
+|   
++---cats
+|   +---controller
+|   |       CatController.java
+|   |       
+|   +---entity
+|   |       Cat.java
+|   |       
+|   \---repository
+|           CatRepository.java
+|           
++---empmgnt
+|   +---controller
+|   |       AccountResource.java
+|   |       DepartmentResource.java
+|   |       EmployeeResource.java
+|   |       NoteResource.java
+|   |       RoleResource.java
+|   |       
+|   +---domain
+|   |       Account.java
+|   |       Department.java
+|   |       Employee.java
+|   |       Note.java
+|   |       Role.java
+|   |       Task.java
+|   |       
+|   +---model
+|   |       AccountDTO.java
+|   |       Branch.java
+|   |       DepartmentDTO.java
+|   |       EmployeeDTO.java
+|   |       NoteDTO.java
+|   |       RoleDTO.java
+|   |       
+|   +---repos
+|   |       AccountRepository.java
+|   |       DepartmentRepository.java
+|   |       EmployeeRepository.java
+|   |       NoteRepository.java
+|   |       RoleRepository.java
+|   |       
+|   \---service
+|           AccountService.java
+|           DepartmentService.java
+|           EmployeeService.java
+|           NoteService.java
+|           RoleService.java
+|           
++---expencecals
+|   +---controller
+|   |       ExpenceResource.java
+|   |       
+|   +---dto
+|   |       ExpenceDTO.java
+|   |       ExpenseCategory.java
+|   |       
+|   +---entity
+|   |       Expence.java
+|   |       
+|   +---repo
+|   |       ExpenceRepository.java
+|   |       
+|   \---service
+|           ExpenceService.java
+|           
++---movieflex
+|   +---controller
+|   |       MovieController.java
+|   |       
+|   +---dto
+|   |       Genre.java
+|   |       MovieDTO.java
+|   |       MovieSearchDTO.java
+|   |       
+|   +---entity
+|   |       Movie.java
+|   |       
+|   +---repo
+|   |       MovieRepository.java
+|   |       
+|   +---service
+|   |       MovieService.java
+|   |       
+|   \---service_impl
+|           MovieServiceImpl.java
+|           
++---mycart
+|   +---controller
+|   |       CartResource.java
+|   |       OrderResource.java
+|   |       ProductResource.java
+|   |       
+|   +---dto
+|   |       CartDTO.java
+|   |       OrderDTO.java
+|   |       ProductDTO.java
+|   |       
+|   +---entity
+|   |       Cart.java
+|   |       Order.java
+|   |       Product.java
+|   |       
+|   +---repo
+|   |       CartRepository.java
+|   |       OrderRepository.java
+|   |       ProductRepository.java
+|   |       
+|   \---service
+|           CartService.java
+|           OrderService.java
+|           ProductService.java
+|           
++---quotes
+|   +---domain
+|   |       Category.java
+|   |       Quote.java
+|   |       Tag.java
+|   |       
+|   +---model
+|   |       CategoryDTO.java
+|   |       JSONQuote.java
+|   |       QuoteDTO.java
+|   |       QuoteJsonDTO.java
+|   |       QuotePaginationDTO.java
+|   |       QuoteSpecifications.java
+|   |       TagCountDTO.java
+|   |       TagDTO.java
+|   |       
+|   +---repos
+|   |       CategoryRepository.java
+|   |       QuoteRepository.java
+|   |       TagRepository.java
+|   |       
+|   +---rest
+|   |       CategoryResource.java
+|   |       QuoteResource.java
+|   |       TagResource.java
+|   |       
+|   \---service
+|           CategoryService.java
+|           QuoteService.java
+|           TagService.java
+|           
++---todomngr
+|   +---controller
+|   |       TaskResource.java
+|   |       TodoResource.java
+|   |       
+|   +---dto
+|   |       TaskDTO.java
+|   |       TodoDTO.java
+|   |       TodoResponse.java
+|   |       TodoStatusType.java
+|   |       
+|   +---entity
+|   |       Todo.java
+|   |       
+|   +---repo
+|   |       TaskRepository.java
+|   |       TodoRepository.java
+|   |       
+|   \---service
+|           TaskService.java
+|           TodoService.java
+|           
++---usermgnt
+|   |   structure.txt
+|   |   
+|   +---controller
+|   |       UserResource.java
+|   |       
+|   +---dto
+|   |       SubscriptionType.java
+|   |       UserDTO.java
+|   |       
+|   +---entity
+|   |       User.java
+|   |       
+|   +---repo
+|   |       UserRepository.java
+|   |       
+|   \---service
+|           UserService.java
+|           
+\---zeebank
+    +---controller
+    |       TransactionResource.java
+    |       
+    +---dto
+    |       TransactionDTO.java
+    |       
+    +---entity
+    |       Transaction.java
+    |       
+    +---repo
+    |       TransactionRepository.java
+    |       
+    \---service
+            TransactionService.java
+            
