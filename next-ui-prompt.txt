@@ -1,0 +1,326 @@
+You are a senior Next.js engineer.
+Your task is to generate a complete CRUD UI feature for a Next.js App Router project.
+The UI communicates with an existing REST API.
+Generate working Next.js code
+Follow the instructions exactly and do not invent extra files.
+
+Stack:
+
+daisyUI
+- Use DaisyUI components for UI elements (buttons, inputs, cards, modals, alerts).
+- Follow DaisyUI component structure and classes.
+
+tailwindcss
+- Mobile-first responsive design.
+- Use Tailwind utilities for layout, spacing, grid, and responsiveness.
+- Prefer DaisyUI components instead of building custom components with Tailwind when possible.
+
+zod
+- Use Zod schemas for validation.
+- Validate both client-side and server-side using the same schema.
+
+lucide-react
+- Use Lucide icons for UI icons.
+- Prefer outline icons with consistent sizing.
+
+
+## INPUTS
+
+BASE API URL: http://localhost:8080/<entities>
+
+Single Item JSON Response
+Example:
+{
+	"id": 1,
+	"name": "Example",
+	"description": "Example text",
+	"size": 100
+}
+
+
+## DERIVED VALUES
+
+Feature Name
+Extract from the BASE API URL.
+Ex: <entities>
+
+Entity Name
+
+<Entity> : <entities> Singular PascalCase of feature name.
+<entity> : <entities> Singular Camel Case of feature name.
+
+Example:
+http://localhost:8080/users
+<entities> = users
+<Entity>  = User
+<entity>  = user
+
+
+Fields
+All JSON properties except id.
+
+## API ENDPOINTS
+GET    <base_api_url>
+GET    <base_api_url>/{id}
+POST   <base_api_url>
+PUT    <base_api_url>/{id}
+DELETE <base_api_url>/{id}
+
+
+## STRICT PROJECT STRUCTURE
+
+You MUST generate ONLY the following files.
+Do NOT add extra folders or files.
+
+
+app/<entities>/
+page.jsx 
+service.js
+actions.js
+components/
+--<Entity>Table.jsx <- Server Component
+--<Entity>Form.jsx <- Clinet Component
+--<Entity>Details.jsx <- Server Component
+--<Entity>DeleteButton.jsx <- Clinet Component
+new/
+--page.jsx
+
+[id]/
+-- page.jsx
+-- edit/
+---- page.jsx
+
+
+## FILE RESPONSIBILITIES
+
+
+### service.js:
+
+Contains API functions using fetch.
+
+Functions required:
+
+getAll<Entity>()
+get<Entity>ById(id)
+create<Entity>(data)
+update<Entity>(id,data)
+delete<Entity>(id)
+
+
+### actions.js:
+
+Contains Next.js Server Actions.
+
+
+Rules:
+Use "use server".
+Use Zod validation.
+Return validation errors for forms.
+Redirect to "/<feature>" after success.
+
+Ex:
+export async function create<Entity>Action(prevState, formData) {
+  const raw = {
+    title: formData.get("title"),
+  };
+
+  const result = BookmarkSchema.safeParse(raw);
+  if (!result.success) {
+    return { errors: result.error.flatten().fieldErrors, values : raw };
+  }
+
+  await create<feature>(result.data); <- Call Server Function
+  redirect("/bookmarks");
+}
+
+export async function update<Entity>Action(id, prevState, formData) {
+	//...
+	await update<Entity>(id, result.data);
+}
+
+export async function delete<Entity>Action(id) {
+  await delete<Entity>(id);
+  redirect("/<entities>");
+}
+
+
+
+### components/<Entity>Table.jsx
+
+It must be Server Component.
+Display list of records.
+Show all fields.
+
+Include actions:
+View: Use Link to navigate
+Edit: Use Link to navigate
+Delete<Entity>Button.jsx
+
+
+### components/<Entity>Form.jsx
+
+It's the client Component.
+Reusable form component.
+
+Used for:
+Create page
+Edit page
+
+Must use:
+useActionState(serverAction)
+Display validation errors.
+Disable submit button while pending.
+It should contain "Cancel button" redirecting /<feature> page.
+
+Ex:
+"use client";
+
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+    >
+      {pending ? "Saving..." : "Save"}
+    </button>
+  );
+}
+
+export default function BookmarkForm({ action, initialData }) {
+  const [state, formAction] = useActionState(action, { errors: {}, values: {} });
+
+  // After a failed submission, restore what the user typed.
+  // On first render, fall back to initialData (edit page prefill).
+  
+  const values = {
+    title:        state.values?.title        ?? initialData?.title        ?? "",
+  };
+
+  return (
+    <form action={formAction}>
+        <input
+          name="title"
+          defaultValue={values.title}
+          key={values.title}
+        />
+        {state?.errors?.title && (
+          <p>{state.errors.title[0]}</p>
+        )}
+		<SubmitButton />
+    </form>
+  );
+}
+
+
+### components/<Entity>Details.jsx
+
+Display all fields of the entity.
+It must be Server Component
+Include edit link from "next/link";
+Include back link from "next/link";
+
+### components/Delete<Entity>Button.jsx
+
+It's Server Component
+
+"use client"
+import { useTransition } from "react";
+import { delete<Entity>Action } from "../actions";
+
+export default function DeleteButton({ id }) {
+    const [isPending, startTransition] = useTransition();
+    function handleDelete(id) {
+        if (!confirm("Delete this bookmark?")) return;
+        startTransition(() => deleteBookmarkAction(id));
+    }
+    return (<button
+        onClick={() => handleDelete(id)}
+        disabled={isPending}
+    >
+        Delete
+    </button>);
+}
+
+### new/page.jsx
+
+Render create page.
+It should be Server Component
+Render Form component.
+Pass create server action.
+
+Ex:
+import <Entity>Form from "../components/<Entity>Form";
+import { create<Entity>Action } from "../actions";
+
+export default function New<Entity>Page() {
+  return (
+      <<Entity>Form action={create<Entity>Action} />
+  );
+}
+
+### [id]/page.jsx
+
+It should  Render details page.
+Fetch record by id.
+Render Details component.
+
+Ex:
+export default async function <Entity>DetailsPage({ params }) {
+  const { id } = await params;
+  const <entity> = await get<Entity>ById(id);
+  return (
+      <<Entity>Details <entity>={<entity>} />
+  );
+}
+
+
+
+### [id]/edit/page.jsx
+
+Render edit page.
+Fetch record.
+Render Form component with initial data.
+Pass update server action.
+
+Ex:
+export default async function Edit<Entity>Page({ params }) {
+  const { id } = await params;  
+  const <entity> = await get<Entity>ById(id);
+  const boundAction = update<Entity>Action.bind(null, id);  
+
+  return <<Entity>Form action={boundAction} initialData={<entity>} />;
+}
+
+
+## IMPLEMENTATION RULES
+
+Use Next.js App Router.
+Use React Server Components for pages.
+Use fetch for API calls.
+Use Tailwind utility classes for minimal styling.
+Use explicit imports.
+Do NOT use wildcard imports.
+
+## OUTPUT FORMAT
+
+Generate files in this format:
+FILE: <path>
+<code>
+Example:
+
+5. All files must contain complete working code.
+6. Follow the file structure exactly.
+
+## FINAL STEP
+
+First display the detected values:
+
+Feature Name
+Entity Name
+Fields
+
+Then generate all files.
