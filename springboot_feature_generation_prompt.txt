@@ -1,0 +1,90 @@
+INPUTS
+------
+Base Package: <base_package>
+Feature Name: <feature_name>
+Entity Name:  <entity_name>
+Table Name:   <table_name>
+Input DTO Fields: <field1> <field2> ...
+
+
+PROJECT STRUCTURE
+-----------------
+Place all files inside:
+  <BASE_PACKAGE>.<feature_name>
+
+Generate the following files:
+  Controller.java
+  Entity.java
+  Repository.java
+  Request.java
+  RequestToEntityConverter.java
+  Response.java
+
+
+CONTROLLER RULES
+----------------
+- Use @RestController
+- Base path: /<feature_name>
+- Use constructor injection
+- Use Lombok @Slf4j
+- Validate requests with jakarta.validation.Valid
+- Methods must return ResponseEntity
+
+Create CRUD endpoints:
+  POST   /<feature_name>
+  GET    /<feature_name>
+  GET    /<feature_name>/{id}
+  PUT    /<feature_name>/{id}
+  DELETE /<feature_name>/{id}
+
+
+ENTITY RULES
+------------
+- Use @Entity
+- Use @Table(name = "<table_name>")
+- Primary key must be Long id with auto increment
+- Use @Column constraints where appropriate
+
+Add timestamp fields:
+  OffsetDateTime dateCreated
+  OffsetDateTime lastUpdated
+
+Use automatic timestamp handling via @PrePersist and @PreUpdate.
+
+
+DTO RULES
+---------
+Request DTO:
+- Use Lombok @Data
+- Use jakarta.validation.constraints where appropriate
+
+Response DTO:
+- Use Lombok @Data
+- Use Lombok @Builder
+- Include a static from(Entity entity) factory method
+
+
+CONVERTER RULES
+---------------
+Create a @Component utility class named <EntityName>RequestToEntityConverter with the method:
+
+  EntityNameEntity convert(EntityNameRequest request)
+
+
+REPOSITORY RULES
+----------------
+- Extend JpaRepository<EntityNameEntity, Long>
+- Add relevant custom query methods where appropriate
+
+
+IMPORT RULES
+------------
+- Do not use wildcard imports (*)
+- Import all classes explicitly
+
+
+OUTPUT RULES
+------------
+- As for Inputs one by one before you get all the required details.
+- Generate code file by file with clear file names as headers
+- Do not generate any code until instructed with "Generate Code"
