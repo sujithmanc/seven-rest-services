@@ -72,24 +72,21 @@ DELETE <base_api_url>/{id}
 You MUST generate ONLY the following files.
 Do NOT add extra folders or files.
 
-
 app/<entities>/
-page.jsx 
-service.js
-actions.js
-components/
---<Entity>Table.jsx <- Server Component
---<Entity>Form.jsx <- Clinet Component
---<Entity>Details.jsx <- Server Component
---<Entity>DeleteButton.jsx <- Clinet Component
-new/
---page.jsx
-
-[id]/
--- page.jsx
--- edit/
----- page.jsx
-
+├── page.jsx                          ← List page (Server)
+├── service.js                        ← API fetch functions
+├── actions.js                        ← Server Actions + Zod validation
+├── components/
+│   ├── <Entity>Table.jsx             ← Table with View/Edit/Delete (Server)
+│   ├── <Entity>Form.jsx              ← Reusable form with useActionState (Client)
+│   ├── <Entity>Details.jsx           ← Detail view with stat cards (Server)
+│   └── <Entity>DeleteButton.jsx      ← Confirm + delete with useTransition (Client)
+├── new/
+│   └── page.jsx                      ← Create page (Server)
+└── [id]/
+    ├── page.jsx                      ← Detail page (Server)
+    └── edit/
+        └── page.jsx                  ← Edit page with bound action (Server)
 
 ## FILE RESPONSIBILITIES
 

@@ -27,4 +27,4 @@ public class BookmarkRequest {
         message = "altTextColor must be a valid hex color like #0000FF"
     )
     private String altTextColor = "#0000FF";
-}
+}	
