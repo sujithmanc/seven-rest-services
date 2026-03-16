@@ -1,37 +1,98 @@
-HELP.md
+# Compiled files
+
+*.class
+
+# Build directories
+
 target/
+build/
+out/
+bin/
+dist/
+nbdist/
+
+# Keep Maven wrapper jar
+
 !.mvn/wrapper/maven-wrapper.jar
+
+# Allow target/build inside source folders if needed
+
 !**/src/main/**/target/
 !**/src/test/**/target/
-application-local.yml
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# Logs
+
 *.log
+logs/
+
+# Environment files
+
+.env
+.env.local
+.env.*
+application-local.yml
+
+# Temporary files
+
+tmp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*~.nib
+
+# OS generated files
+
+.DS_Store
+Thumbs.db
+
+# Process files
+
+*.pid
+*.pid.lock
+*.seed
+
+# Node related
+
 node_modules/
 node/
 
-### STS ###
+# Test output
+
+test-output/
+
+# Eclipse / STS
+
+.metadata/
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
+.loadpath
+.recommenders
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA
+
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
+
 /nbproject/private/
 /nbbuild/
-/dist/
-/nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# VS Code
+
 .vscode/
+
+# Misc
+
+HELP.md
